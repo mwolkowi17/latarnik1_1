@@ -1,10 +1,19 @@
 <script setup lang="ts">
+import Podpowiedz from './Podpowiedz.vue';
+import PrawidlowaOdpowiedz from './PrawidlowaOdpowiedz.vue';
+import { useSceneStore } from '../stores/sceneStore';
 
+const storeSceneMain = useSceneStore();
 </script>
 
 <template>
     <div class="tlo">
         <button class="button-zagraj-jeszcze my-button">Zagraj jeszcze raz</button>
+        <div class="kola-elementy">
+            <div class="elipsa elipsa-podpowiedz">
+                <img src="../assets/podpowiedz.png" alt="wymien pytanie" width="103px" height="78px" />
+            </div>
+        </div>
         <div class="kola-elementy">
             <div class="elipsa elipsa-wymien">
                 <img src="../assets/wymien.png" alt="wymien pytanie" width="60px" height="100px" />
@@ -21,6 +30,10 @@
             </div>
         </div>
         <img class="glosnik" src="../assets/glosnik.png" alt="glosnik" width="84px" height="74px" />
+
+        <Podpowiedz class="component-podpowiedz" v-if="storeSceneMain.ifPodpowiedz" />
+        <PrawidlowaOdpowiedz class="component-prawidlowa-odpowiedz" v-if="storeSceneMain.ifPrawidlowaOdpowiedz" />
+
         <div class="container-pytanie">Gdzie rozgrywa się akcja noweli "Latarnik"</div>
         <button class="button-odpowiedz buttonA my-button">Buenos Aires
         </button>
@@ -30,7 +43,7 @@
         </button>
         <button class="button-odpowiedz buttonD my-button">Nowy Jork
         </button>
-        
+
         <div class="container-punktacja">
             <div class="ramka-punktacja"></div>
             <div class="licznik-czasu">
@@ -67,29 +80,40 @@
                 </div>
                 <div class="punktacja-row">
                     <p class="napis-punktacja">5</p>
-                    <img class="punktacja-elementy moneta" src="../assets/puchar_silver.png" width="67px" height="80px" />
+                    <img class="punktacja-elementy moneta" src="../assets/puchar_silver.png" width="67px"
+                        height="80px" />
                 </div>
                 <div class="punktacja-row">
                     <p class="napis-punktacja">4</p>
-                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
-                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
-                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
-                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px"
+                        height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px"
+                        height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px"
+                        height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px"
+                        height="58px" />
                 </div>
                 <div class="punktacja-row">
                     <p class="napis-punktacja">3</p>
-                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
-                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
-                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px"
+                        height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px"
+                        height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px"
+                        height="58px" />
                 </div>
                 <div class="punktacja-row">
                     <p class="napis-punktacja">2</p>
-                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
-                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px"
+                        height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px"
+                        height="58px" />
                 </div>
                 <div class="punktacja-row">
                     <p class="napis-punktacja">1</p>
-                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px"
+                        height="58px" />
                 </div>
             </div>
         </div>
@@ -141,6 +165,14 @@
 
 }
 
+.elipsa-podpowiedz {
+    padding-top: 15px !important;
+    margin-bottom: -0px !important;
+    position: absolute;
+    top: 17px;
+    left: 585px
+}
+
 .elipsa-wymien {
     padding-top: 15px !important;
     margin-bottom: -0px !important;
@@ -176,6 +208,18 @@
     top: 147px;
     left: 34px;
     opacity: 0.77;
+}
+
+.component-podpowiedz {
+    position: absolute;
+    top: 370px;
+    left: 315px
+}
+
+.component-prawidlowa-odpowiedz {
+    position: absolute;
+    top: 246px;
+    left: 315px
 }
 
 .container-pytanie {
@@ -329,16 +373,16 @@
     display: inline-block;
 }
 
-.moneta{
+.moneta {
     margin-left: 20px;
 }
 
-.ramka-punktacja{
+.ramka-punktacja {
     position: absolute;
     background: #093343;
     width: 558px;
     height: 70px;
-    top:990px;
+    top: 990px;
     left: 15px;
 }
 </style>
