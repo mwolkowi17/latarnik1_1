@@ -6,7 +6,17 @@ export const useMainCompStore = defineStore("mainComp1", () => {
 
   const ifInstruction = ref(false);
   const ifMain1 = ref(false);
-  const ifWinSilver = ref(true);
+  const ifWinSilver = ref(false);
+  const ifWinGold = ref(false);
+  const ifPrzegranaSilver = ref(false);
+  const ifPrzegranaGold = ref(true);
 
-  return { ifInstruction, ifMain1, ifWinSilver };
+  return {
+    ifInstruction,
+    ifMain1,
+    ifWinSilver,
+    ifWinGold,
+    ifPrzegranaSilver,
+    ifPrzegranaGold,
+  };
 });
