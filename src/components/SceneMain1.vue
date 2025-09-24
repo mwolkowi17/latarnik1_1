@@ -30,7 +30,9 @@
         </button>
         <button class="button-odpowiedz buttonD my-button">Nowy Jork
         </button>
+        
         <div class="container-punktacja">
+            <div class="ramka-punktacja"></div>
             <div class="licznik-czasu">
                 00:20
             </div>
@@ -43,31 +45,51 @@
                 </div>
                 <div class="punktacja-row">
                     <p class="napis-punktacja">9</p>
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_gold.png" width="60px" height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_gold.png" width="60px" height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_gold.png" width="60px" height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_gold.png" width="60px" height="58px" />
                 </div>
                 <div class="punktacja-row">
                     <p class="napis-punktacja">8</p>
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_gold.png" width="60px" height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_gold.png" width="60px" height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_gold.png" width="60px" height="58px" />
                 </div>
                 <div class="punktacja-row">
                     <p class="napis-punktacja">7</p>
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_gold.png" width="60px" height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_gold.png" width="60px" height="58px" />
                 </div>
                 <div class="punktacja-row">
                     <p class="napis-punktacja">6</p>
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_gold.png" width="60px" height="58px" />
                 </div>
                 <div class="punktacja-row">
                     <p class="napis-punktacja">5</p>
-                     <img class="punktacja-elementy" src="../assets/puchar_silver.png" width="67px" height="80px" />
+                    <img class="punktacja-elementy moneta" src="../assets/puchar_silver.png" width="67px" height="80px" />
                 </div>
                 <div class="punktacja-row">
                     <p class="napis-punktacja">4</p>
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
                 </div>
                 <div class="punktacja-row">
                     <p class="napis-punktacja">3</p>
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
                 </div>
                 <div class="punktacja-row">
                     <p class="napis-punktacja">2</p>
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
                 </div>
                 <div class="punktacja-row">
                     <p class="napis-punktacja">1</p>
+                    <img class="punktacja-elementy moneta" src="../assets/moneta_silver.png" width="60px" height="58px" />
                 </div>
             </div>
         </div>
@@ -273,8 +295,6 @@
 
 .container-points {
     position: absolute;
-    /* background-color: #093343; */
-    border: 2px solid #093343;
     width: 540px;
     height: 800px;
     top: 250px;
@@ -282,10 +302,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items:flex-start;
+    align-items: flex-start;
 }
 
-.napis-punktacja{
+.napis-punktacja {
     color: white;
     font-size: 50px;
     font-style: bold;
@@ -297,15 +317,28 @@
 
 }
 
-.punktacja-row{
-   margin-top: 0px;
-   margin-bottom: 20px;
-   display: flex;
-   align-items: center;
+.punktacja-row {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
 }
 
-.punktacja-elementy{
+.punktacja-elementy {
     position: relative;
     display: inline-block;
+}
+
+.moneta{
+    margin-left: 20px;
+}
+
+.ramka-punktacja{
+    position: absolute;
+    background: #093343;
+    width: 558px;
+    height: 70px;
+    top:990px;
+    left: 15px;
 }
 </style>
