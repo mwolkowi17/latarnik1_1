@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Podpowiedz from './Podpowiedz.vue';
 import PrawidlowaOdpowiedz from './PrawidlowaOdpowiedz.vue';
+import ZlaOdpowiedz from './ZlaOdpowiedz.vue';
 import { useSceneStore } from '../stores/sceneStore';
 
 const storeSceneMain = useSceneStore();
@@ -33,6 +34,7 @@ const storeSceneMain = useSceneStore();
 
         <Podpowiedz class="component-podpowiedz" v-if="storeSceneMain.ifPodpowiedz" />
         <PrawidlowaOdpowiedz class="component-prawidlowa-odpowiedz" v-if="storeSceneMain.ifPrawidlowaOdpowiedz" />
+        <ZlaOdpowiedz class="component-zla-odpowiedz" v-if="storeSceneMain.ifZlaOdpowiedz" />
 
         <div class="container-pytanie">Gdzie rozgrywa się akcja noweli "Latarnik"</div>
         <button class="button-odpowiedz buttonA my-button">Buenos Aires
@@ -217,6 +219,12 @@ const storeSceneMain = useSceneStore();
 }
 
 .component-prawidlowa-odpowiedz {
+    position: absolute;
+    top: 246px;
+    left: 315px
+}
+
+.component-zla-odpowiedz {
     position: absolute;
     top: 246px;
     left: 315px
