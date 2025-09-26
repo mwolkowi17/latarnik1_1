@@ -1,4 +1,15 @@
 <script setup lang="ts">
+//import { useSceneStore } from '../stores/sceneStore';
+import {useMainCompStore} from '../stores/mainCompStore'
+
+
+//const storeSceneMain = useSceneStore();
+const storeMainComp = useMainCompStore();
+
+function jeszczeRaz(){
+    storeMainComp.ifPrzegranaSilver=false
+    storeMainComp.ifMain1=true
+}
 
 </script>
 
@@ -12,7 +23,7 @@
             <p class="brawo">Przegrana.</p>
            
             <div class="button-row">
-                <button class="button-win my-button">
+                <button class="my-button button-win" @click="jeszczeRaz">
                     <p class="button-text">Zagraj jeszcze raz</p>
                     <p class="button-text">-zacznij od poziomu łatwego</p>
                 </button>

@@ -3,47 +3,115 @@ import Podpowiedz from './Podpowiedz.vue';
 import PrawidlowaOdpowiedz from './PrawidlowaOdpowiedz.vue';
 import ZlaOdpowiedz from './ZlaOdpowiedz.vue';
 import { useSceneStore } from '../stores/sceneStore';
+import {useMainCompStore} from '../stores/mainCompStore'
 import { onMounted, nextTick } from 'vue';
 
 const storeSceneMain = useSceneStore();
+const storeMainComp = useMainCompStore();
 
-onMounted(()=>{
-storeSceneMain.addQuestionLevel1()
+
+onMounted(() => {
+    storeSceneMain.addQuestionLevel1()
 })
 
 
 
 //obsługa eventów podpiętych do buttonów
-async function odpowiedz1Click(){
+async function odpowiedz1Click() {
     console.log('odp1')
     storeSceneMain.sprawdzOdpowiedz(1)
     await nextTick()
-    storeSceneMain.addQuestionLevel1()
+    if (storeSceneMain.ifPrawidlowaOdpowiedz === true) {
+        setTimeout(() => {
+            storeSceneMain.addQuestionLevel1()
+            storeSceneMain.ifPrawidlowaOdpowiedz = false
+            storeSceneMain.ramkaPunktyMove()
+            if(storeSceneMain.licznikPunktacja===4){
+                storeMainComp.ifMain1=false
+                storeMainComp.ifWinSilver=true
+            }
+        }, 3000)
+    }else{
+        setTimeout(() => {
+            storeSceneMain.ifZlaOdpowiedz=false
+            storeMainComp.ifMain1=false
+            storeMainComp.ifPrzegranaSilver=true
+        },3000)
+    }
     
 }
 
-async function odpowiedz2Click(){
+async function odpowiedz2Click() {
     console.log('odp2')
-storeSceneMain.sprawdzOdpowiedz(2)
+    storeSceneMain.sprawdzOdpowiedz(2)
     await nextTick()
-    storeSceneMain.addQuestionLevel1()
-    
+    if (storeSceneMain.ifPrawidlowaOdpowiedz === true) {
+        setTimeout(() => {
+            storeSceneMain.addQuestionLevel1()
+            storeSceneMain.ifPrawidlowaOdpowiedz = false
+            storeSceneMain.ramkaPunktyMove()
+              if(storeSceneMain.licznikPunktacja===4){
+                storeMainComp.ifMain1=false
+                storeMainComp.ifWinSilver=true
+            }
+        }, 3000)
+    }
+    else{
+        setTimeout(() => {
+            storeSceneMain.ifZlaOdpowiedz=false
+            storeMainComp.ifMain1=false
+            storeMainComp.ifPrzegranaSilver=true
+        },3000)
+    }
+
 }
 
-async function odpowiedz3Click(){
+async function odpowiedz3Click() {
     console.log('odp3')
     storeSceneMain.sprawdzOdpowiedz(3)
     await nextTick()
-    storeSceneMain.addQuestionLevel1()
-    
+    if (storeSceneMain.ifPrawidlowaOdpowiedz === true) {
+        setTimeout(() => {
+            storeSceneMain.addQuestionLevel1()
+            storeSceneMain.ifPrawidlowaOdpowiedz = false
+            storeSceneMain.ramkaPunktyMove()
+              if(storeSceneMain.licznikPunktacja===4){
+                storeMainComp.ifMain1=false
+                storeMainComp.ifWinSilver=true
+            }
+        }, 3000)
+    }
+    else{
+        setTimeout(() => {
+            storeSceneMain.ifZlaOdpowiedz=false
+            storeMainComp.ifMain1=false
+            storeMainComp.ifPrzegranaSilver=true
+        },3000)
+    }
 }
 
-async function odpowiedz4Click(){
+async function odpowiedz4Click() {
     console.log('odp4')
     storeSceneMain.sprawdzOdpowiedz(4)
     await nextTick()
-    storeSceneMain.addQuestionLevel1()
-   
+    if (storeSceneMain.ifPrawidlowaOdpowiedz === true) {
+        setTimeout(() => {
+            storeSceneMain.addQuestionLevel1()
+            storeSceneMain.ifPrawidlowaOdpowiedz = false
+            storeSceneMain.ramkaPunktyMove()
+              if(storeSceneMain.licznikPunktacja===4){
+                storeMainComp.ifMain1=false
+                storeMainComp.ifWinSilver=true
+            }
+        }, 3000)
+    }
+    else{
+        setTimeout(() => {
+            storeSceneMain.ifZlaOdpowiedz=false
+            storeMainComp.ifMain1=false
+            storeMainComp.ifPrzegranaSilver=true
+        },3000)
+    }
 }
 
 </script>
@@ -77,22 +145,22 @@ async function odpowiedz4Click(){
         <PrawidlowaOdpowiedz class="component-prawidlowa-odpowiedz" v-if="storeSceneMain.ifPrawidlowaOdpowiedz" />
         <ZlaOdpowiedz class="component-zla-odpowiedz" v-if="storeSceneMain.ifZlaOdpowiedz" />
 
-        <div class="container-pytanie">{{storeSceneMain.pytanie}}</div>
+        <div class="container-pytanie">{{ storeSceneMain.pytanie }}</div>
         <button class="button-odpowiedz buttonA my-button" @click="odpowiedz1Click">
-            {{storeSceneMain?.odpowiedz1}}
+            {{ storeSceneMain?.odpowiedz1 }}
         </button>
         <button class="button-odpowiedz buttonB my-button" @click="odpowiedz2Click">
-            {{storeSceneMain.odpowiedz2}}
+            {{ storeSceneMain.odpowiedz2 }}
         </button>
         <button class="button-odpowiedz buttonC my-button" @click="odpowiedz3Click">
-            {{storeSceneMain.odpowiedz3}}
+            {{ storeSceneMain.odpowiedz3 }}
         </button>
-        <button class="button-odpowiedz buttonD my-button"@click="odpowiedz4Click">
-            {{storeSceneMain.odpowiedz4}}
+        <button class="button-odpowiedz buttonD my-button" @click="odpowiedz4Click">
+            {{ storeSceneMain.odpowiedz4 }}
         </button>
 
         <div class="container-punktacja">
-            <div class="ramka-punktacja"></div>
+            <div class="ramka-punktacja" :style="{ top: storeSceneMain.ramkaPunktacjaWysokosc + 'px' }"></div>
             <div class="licznik-czasu">
                 00:20
             </div>
@@ -435,7 +503,7 @@ async function odpowiedz4Click(){
     background: #093343;
     width: 558px;
     height: 70px;
-    top: 990px;
+    /* top: 990px; */
     left: 15px;
 }
 </style>

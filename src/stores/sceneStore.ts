@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref, nextTick } from "vue";
 import gameData from "../lib/pytania.json";
+import pointsPosition from "../lib/pozycjaRamki.json";
 import { metodyPomocnicze } from "../lib/metody-pomocnicze";
 
 export const useSceneStore = defineStore("storeScene1", () => {
@@ -8,6 +9,12 @@ export const useSceneStore = defineStore("storeScene1", () => {
   const ifPodpowiedz = ref(false);
   const ifPrawidlowaOdpowiedz = ref(false);
   const ifZlaOdpowiedz = ref(false);
+
+  //położenie ramki punktacji
+  const ramkaPunktacjaWysokosc = ref(pointsPosition.pozycjaRamki[0]);
+
+  //liczik punktacji (sterownie ramką punktacji)
+  const licznikPunktacja = ref(0);
 
   // właściwości dot pytań
   const kolekcjaPytan = ref(gameData.poziom1);
@@ -26,7 +33,7 @@ export const useSceneStore = defineStore("storeScene1", () => {
     let iloscElementowKolekcjiPytan = gameData.poziom1.length - nrKolejki;
     let pytanieNr: number;
     pytanieNr = metodyPomocnicze.wybierzPytanie(iloscElementowKolekcjiPytan);
-    console.log("wyswietlane pytanir:" + pytanieNr);
+    console.log("wyswietlane pytanie:" + pytanieNr);
 
     await nextTick();
     nrKolejki++;
@@ -63,6 +70,7 @@ export const useSceneStore = defineStore("storeScene1", () => {
       ) === true
     ) {
       console.log("prawidłowa odpowiedz");
+      ifPrawidlowaOdpowiedz.value = true;
     }
     if (
       metodyPomocnicze.sprawdzOdpowiedz(
@@ -71,13 +79,22 @@ export const useSceneStore = defineStore("storeScene1", () => {
       ) === false
     ) {
       console.log("zła odpowiedz");
+      ifZlaOdpowiedz.value = true;
     }
+  }
+
+  async function ramkaPunktyMove() {
+    licznikPunktacja.value = licznikPunktacja.value + 1;
+    await nextTick();
+    ramkaPunktacjaWysokosc.value =
+      pointsPosition.pozycjaRamki[licznikPunktacja.value];
   }
 
   return {
     ifPodpowiedz,
     ifPrawidlowaOdpowiedz,
     ifZlaOdpowiedz,
+    ramkaPunktacjaWysokosc,
     pytanie,
     odpowiedz1,
     odpowiedz2,
@@ -85,7 +102,9 @@ export const useSceneStore = defineStore("storeScene1", () => {
     odpowiedz4,
     nrOdpowiedziDobrej,
     wybranaOdpowiedz,
+    licznikPunktacja,
     addQuestionLevel1,
     sprawdzOdpowiedz,
+    ramkaPunktyMove,
   };
 });
