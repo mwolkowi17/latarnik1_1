@@ -3,8 +3,49 @@ import Podpowiedz from './Podpowiedz.vue';
 import PrawidlowaOdpowiedz from './PrawidlowaOdpowiedz.vue';
 import ZlaOdpowiedz from './ZlaOdpowiedz.vue';
 import { useSceneStore } from '../stores/sceneStore';
+import { onMounted, nextTick } from 'vue';
 
 const storeSceneMain = useSceneStore();
+
+onMounted(()=>{
+storeSceneMain.addQuestionLevel1()
+})
+
+
+
+//obsługa eventów podpiętych do buttonów
+async function odpowiedz1Click(){
+    console.log('odp1')
+    storeSceneMain.sprawdzOdpowiedz(1)
+    await nextTick()
+    storeSceneMain.addQuestionLevel1()
+    
+}
+
+async function odpowiedz2Click(){
+    console.log('odp2')
+storeSceneMain.sprawdzOdpowiedz(2)
+    await nextTick()
+    storeSceneMain.addQuestionLevel1()
+    
+}
+
+async function odpowiedz3Click(){
+    console.log('odp3')
+    storeSceneMain.sprawdzOdpowiedz(3)
+    await nextTick()
+    storeSceneMain.addQuestionLevel1()
+    
+}
+
+async function odpowiedz4Click(){
+    console.log('odp4')
+    storeSceneMain.sprawdzOdpowiedz(4)
+    await nextTick()
+    storeSceneMain.addQuestionLevel1()
+   
+}
+
 </script>
 
 <template>
@@ -36,14 +77,18 @@ const storeSceneMain = useSceneStore();
         <PrawidlowaOdpowiedz class="component-prawidlowa-odpowiedz" v-if="storeSceneMain.ifPrawidlowaOdpowiedz" />
         <ZlaOdpowiedz class="component-zla-odpowiedz" v-if="storeSceneMain.ifZlaOdpowiedz" />
 
-        <div class="container-pytanie">Gdzie rozgrywa się akcja noweli "Latarnik"</div>
-        <button class="button-odpowiedz buttonA my-button">Buenos Aires
+        <div class="container-pytanie">{{storeSceneMain.pytanie}}</div>
+        <button class="button-odpowiedz buttonA my-button" @click="odpowiedz1Click">
+            {{storeSceneMain?.odpowiedz1}}
         </button>
-        <button class="button-odpowiedz buttonB my-button">Aspinwall
+        <button class="button-odpowiedz buttonB my-button" @click="odpowiedz2Click">
+            {{storeSceneMain.odpowiedz2}}
         </button>
-        <button class="button-odpowiedz buttonC my-button">Lwów
+        <button class="button-odpowiedz buttonC my-button" @click="odpowiedz3Click">
+            {{storeSceneMain.odpowiedz3}}
         </button>
-        <button class="button-odpowiedz buttonD my-button">Nowy Jork
+        <button class="button-odpowiedz buttonD my-button"@click="odpowiedz4Click">
+            {{storeSceneMain.odpowiedz4}}
         </button>
 
         <div class="container-punktacja">
