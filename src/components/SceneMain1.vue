@@ -5,7 +5,7 @@ import ZlaOdpowiedz from './ZlaOdpowiedz.vue';
 import { useSceneStore } from '../stores/sceneStore';
 import { useMainCompStore } from '../stores/mainCompStore'
 import { useTimerStore } from '../stores/timerStore';
-import { onMounted, nextTick } from 'vue';
+import { onMounted, nextTick, ref } from 'vue';
 
 const storeSceneMain = useSceneStore();
 const storeMainComp = useMainCompStore();
@@ -118,12 +118,19 @@ async function odpowiedz4Click() {
 }
 
 // obsługa timera
+const formattedTime = ref("02:00")
 
 function startTimer() {
-    storeTime.timeScene1Local = 10
+    storeTime.timeScene1Local = 120
 
     const interval = setInterval(() => {
         if (storeTime.timeScene1Local > 0) {
+            const minutes = Math.floor(storeTime.timeScene1Local / 60);
+            const seconds = storeTime.timeScene1Local % 60;
+
+            formattedTime.value =
+                String(minutes).padStart(2, '0') + ':' +
+                String(seconds).padStart(2, '0');
 
             storeTime.timeScene1Local--;
 
@@ -186,8 +193,8 @@ function startTimer() {
             <!--<div class="licznik-czasu">
                 00:20
             </div>-->
-              <div class="licznik-czasu">
-                {{ storeTime.timeScene1Local }}
+            <div class="licznik-czasu">
+                {{ formattedTime }}
             </div>
             <button class="my-button button-pauza">Pauza</button>
             <button class="my-button button-kontynuj">Kontynuj</button>

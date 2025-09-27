@@ -10,5 +10,13 @@ export const useTimerStore = defineStore("timerStore", () => {
 
   const ifTimerOn = ref(true);
 
-  return { ifTimerVisible, ifTimeFirstTime, timeScene1Local, ifTimerOn };
+  const formatedTime1 = ref("00:00");
+
+  return {
+    ifTimerVisible,
+    ifTimeFirstTime,
+    timeScene1Local,
+    ifTimerOn,
+    formatedTime1,
+  };
 });
