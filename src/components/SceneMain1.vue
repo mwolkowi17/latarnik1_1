@@ -3,15 +3,18 @@ import Podpowiedz from './Podpowiedz.vue';
 import PrawidlowaOdpowiedz from './PrawidlowaOdpowiedz.vue';
 import ZlaOdpowiedz from './ZlaOdpowiedz.vue';
 import { useSceneStore } from '../stores/sceneStore';
-import {useMainCompStore} from '../stores/mainCompStore'
+import { useMainCompStore } from '../stores/mainCompStore'
+import { useTimerStore } from '../stores/timerStore';
 import { onMounted, nextTick } from 'vue';
 
 const storeSceneMain = useSceneStore();
 const storeMainComp = useMainCompStore();
+const storeTime = useTimerStore();
 
 
 onMounted(() => {
     storeSceneMain.addQuestionLevel1()
+    startTimer();
 })
 
 
@@ -26,19 +29,19 @@ async function odpowiedz1Click() {
             storeSceneMain.addQuestionLevel1()
             storeSceneMain.ifPrawidlowaOdpowiedz = false
             storeSceneMain.ramkaPunktyMove()
-            if(storeSceneMain.licznikPunktacja===4){
-                storeMainComp.ifMain1=false
-                storeMainComp.ifWinSilver=true
+            if (storeSceneMain.licznikPunktacja === 4) {
+                storeMainComp.ifMain1 = false
+                storeMainComp.ifWinSilver = true
             }
         }, 3000)
-    }else{
+    } else {
         setTimeout(() => {
-            storeSceneMain.ifZlaOdpowiedz=false
-            storeMainComp.ifMain1=false
-            storeMainComp.ifPrzegranaSilver=true
-        },3000)
+            storeSceneMain.ifZlaOdpowiedz = false
+            storeMainComp.ifMain1 = false
+            storeMainComp.ifPrzegranaSilver = true
+        }, 3000)
     }
-    
+
 }
 
 async function odpowiedz2Click() {
@@ -50,18 +53,18 @@ async function odpowiedz2Click() {
             storeSceneMain.addQuestionLevel1()
             storeSceneMain.ifPrawidlowaOdpowiedz = false
             storeSceneMain.ramkaPunktyMove()
-              if(storeSceneMain.licznikPunktacja===4){
-                storeMainComp.ifMain1=false
-                storeMainComp.ifWinSilver=true
+            if (storeSceneMain.licznikPunktacja === 4) {
+                storeMainComp.ifMain1 = false
+                storeMainComp.ifWinSilver = true
             }
         }, 3000)
     }
-    else{
+    else {
         setTimeout(() => {
-            storeSceneMain.ifZlaOdpowiedz=false
-            storeMainComp.ifMain1=false
-            storeMainComp.ifPrzegranaSilver=true
-        },3000)
+            storeSceneMain.ifZlaOdpowiedz = false
+            storeMainComp.ifMain1 = false
+            storeMainComp.ifPrzegranaSilver = true
+        }, 3000)
     }
 
 }
@@ -75,18 +78,18 @@ async function odpowiedz3Click() {
             storeSceneMain.addQuestionLevel1()
             storeSceneMain.ifPrawidlowaOdpowiedz = false
             storeSceneMain.ramkaPunktyMove()
-              if(storeSceneMain.licznikPunktacja===4){
-                storeMainComp.ifMain1=false
-                storeMainComp.ifWinSilver=true
+            if (storeSceneMain.licznikPunktacja === 4) {
+                storeMainComp.ifMain1 = false
+                storeMainComp.ifWinSilver = true
             }
         }, 3000)
     }
-    else{
+    else {
         setTimeout(() => {
-            storeSceneMain.ifZlaOdpowiedz=false
-            storeMainComp.ifMain1=false
-            storeMainComp.ifPrzegranaSilver=true
-        },3000)
+            storeSceneMain.ifZlaOdpowiedz = false
+            storeMainComp.ifMain1 = false
+            storeMainComp.ifPrzegranaSilver = true
+        }, 3000)
     }
 }
 
@@ -99,19 +102,38 @@ async function odpowiedz4Click() {
             storeSceneMain.addQuestionLevel1()
             storeSceneMain.ifPrawidlowaOdpowiedz = false
             storeSceneMain.ramkaPunktyMove()
-              if(storeSceneMain.licznikPunktacja===4){
-                storeMainComp.ifMain1=false
-                storeMainComp.ifWinSilver=true
+            if (storeSceneMain.licznikPunktacja === 4) {
+                storeMainComp.ifMain1 = false
+                storeMainComp.ifWinSilver = true
             }
         }, 3000)
     }
-    else{
+    else {
         setTimeout(() => {
-            storeSceneMain.ifZlaOdpowiedz=false
-            storeMainComp.ifMain1=false
-            storeMainComp.ifPrzegranaSilver=true
-        },3000)
+            storeSceneMain.ifZlaOdpowiedz = false
+            storeMainComp.ifMain1 = false
+            storeMainComp.ifPrzegranaSilver = true
+        }, 3000)
     }
+}
+
+// obsługa timera
+
+function startTimer() {
+    storeTime.timeScene1Local = 10
+
+    const interval = setInterval(() => {
+        if (storeTime.timeScene1Local > 0) {
+
+            storeTime.timeScene1Local--;
+
+        } else {
+            if (storeTime.ifTimerOn === true) {
+                clearInterval(interval);
+                console.log("Time's up!");
+            }
+        }
+    }, 1000)
 }
 
 </script>
@@ -161,8 +183,11 @@ async function odpowiedz4Click() {
 
         <div class="container-punktacja">
             <div class="ramka-punktacja" :style="{ top: storeSceneMain.ramkaPunktacjaWysokosc + 'px' }"></div>
-            <div class="licznik-czasu">
+            <!--<div class="licznik-czasu">
                 00:20
+            </div>-->
+              <div class="licznik-czasu">
+                {{ storeTime.timeScene1Local }}
             </div>
             <button class="my-button button-pauza">Pauza</button>
             <button class="my-button button-kontynuj">Kontynuj</button>
